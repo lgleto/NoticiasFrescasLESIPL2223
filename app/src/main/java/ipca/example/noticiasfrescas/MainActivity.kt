@@ -10,22 +10,65 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    //https://newsapi.org/v2/top-headlines?country=pt&apiKey=1765f87e4ebc40229e80fd0f75b6416c
+
     // model
     var articles = arrayListOf<Article>()
+    val adapter = ArticlesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        articles.add(Article("safasf","afwaefaf", Date(),null))
-        articles.add(Article("sdfwqwdfs","afwaefaf", Date(),null))
+        fetchData()
+
 
         val listViewArticle = findViewById<ListView>(R.id.listViewArticles)
-        listViewArticle.adapter = ArticlesAdapter()
+        listViewArticle.adapter = adapter
+
+
+    }
+
+    fun fetchData(){
+        GlobalScope.launch (Dispatchers.IO) {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url("https://newsapi.org/v2/top-headlines?country=pt&apiKey=1765f87e4ebc40229e80fd0f75b6416c")
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                val result =  response.body!!.string()
+                Log.d(TAG, result)
+
+                val jsonObject = JSONObject(result)
+                if (jsonObject.getString("status") == "ok"){
+                    val articlesJSONArray = jsonObject.getJSONArray("articles")
+                    for( index in 0 until articlesJSONArray.length()){
+                        val articleJSONObject = articlesJSONArray.getJSONObject(index)
+                        val article = Article.fromJSON(articleJSONObject)
+                        articles.add(article)
+                    }
+                    GlobalScope.launch (Dispatchers.Main){
+                        adapter.notifyDataSetChanged()
+                    }
+
+                }
+            }
+        }
+
     }
 
     inner class ArticlesAdapter : BaseAdapter() {
@@ -50,20 +93,24 @@ class MainActivity : AppCompatActivity() {
 
             val article = articles[position]
             textViewArticleTitle.text = article.title
-            textViewArticleBody.text = article.body
-            textViewArticleDate.text = article.pubDate.toString()
+            textViewArticleBody.text = article.content
+            textViewArticleDate.text = article.publishedAt.toString()
 
             rowView.setOnClickListener {
-                Log.d("MainActivity", "article:${article.title}")
+                Log.d(TAG, "article:${article.title}")
                 val intent = Intent(this@MainActivity, ArticleDetailActivity::class.java)
                 intent.putExtra("title", article.title)
-                intent.putExtra("body",article.body)
+                intent.putExtra("body",article.content)
                 startActivity(intent)
             }
 
             return rowView
         }
 
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 
 }
