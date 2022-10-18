@@ -5,11 +5,11 @@ import java.util.*
 
 class Article {
 
-    var title : String? = null
-    var content : String? = null
+    var title       : String? = null
+    var content     : String? = null
     var publishedAt : Date? = null
-    var urlToImage : String? = null
-    var url : String? = null
+    var urlToImage  : String? = null
+    var url         : String? = null
 
     constructor(title: String?,
                 content: String?,
@@ -23,14 +23,24 @@ class Article {
         this.url = url
     }
 
+    fun toJSON() : JSONObject {
+        val jsonObject = JSONObject()
+        jsonObject.put("title"      , title      )
+        jsonObject.put("content"    , content    )
+        jsonObject.put("publishedAt", publishedAt?.toServerFormat())
+        jsonObject.put("urlToImage" , urlToImage )
+        jsonObject.put("url"        , url        )
+        return jsonObject
+    }
+
     companion object{
         fun fromJSON(jsonObject: JSONObject) : Article {
             return Article(
-                jsonObject.getString("title"),
-                jsonObject.getString("content"),
-                 Date(),//jsonObject.getString("publishedAt"),
-                jsonObject.getString("urlToImage"),
-                jsonObject.getString("url")
+                jsonObject.getString("title"      ),
+                jsonObject.getString("content"    ),
+                jsonObject.getString("publishedAt").parsePubDate(),
+                jsonObject.getString("urlToImage" ),
+                jsonObject.getString("url"        )
             )
         }
     }
