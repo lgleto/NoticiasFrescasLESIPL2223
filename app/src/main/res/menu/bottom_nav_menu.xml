@@ -6,5 +6,19 @@
         android:icon="@drawable/ic_baseline_newspaper_24"
         android:title="@string/title_general" />
 
+    <item
+        android:id="@+id/economyFragment"
+        android:icon="@drawable/ic_baseline_currency_bitcoin_24"
+        android:title="@string/title_economy" />
+
+    <item
+        android:id="@+id/sportsFragment"
+        android:icon="@drawable/ic_baseline_sports_handball_24"
+        android:title="@string/title_sports" />
+
+    <item
+        android:id="@+id/tecnologyFragment"
+        android:icon="@drawable/ic_baseline_computer_24"
+        android:title="@string/title_tecnology" />
 
 </menu>

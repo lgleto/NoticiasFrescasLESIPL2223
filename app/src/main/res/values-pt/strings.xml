@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">MutiasNoticiasFrescas</string>
     <string name="title_general">Geral</string>
+    <string name="title_economy">Economia</string>
+    <string name="title_sports">Desporto</string>
+    <string name="title_tecnology">Tecnologia</string>
 </resources>

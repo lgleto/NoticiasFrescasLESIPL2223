@@ -3,12 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_general">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_general"
         android:name="ipca.example.mutiasnoticiasfrescas.ui.home.GeneralFragment"
         android:label="@string/title_general"
-        tools:layout="@layout/fragment_general" />
+        tools:layout="@layout/fragment_general" >
+        <action
+            android:id="@+id/action_navigation_home_to_articleWebDetailFragment"
+            app:destination="@id/articleWebDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleWebDetailFragment"
+        android:name="ipca.example.mutiasnoticiasfrescas.ui.home.ArticleWebDetailFragment"
+        android:label="ArticleWebDetailFragment"
+        tools:layout="@layout/fragment_article_web_detail" >
+        <argument
+            android:name="article_json_string"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/economyFragment"
+        android:name="ipca.example.mutiasnoticiasfrescas.ui.home.EconomyFragment"
+        android:label="EconomyFragment"
+        tools:layout="@layout/fragment_general">
+        <action
+            android:id="@+id/action_economyFragment_to_articleWebDetailFragment"
+            app:destination="@id/articleWebDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sportsFragment"
+        android:name="ipca.example.mutiasnoticiasfrescas.ui.home.SportsFragment"
+        android:label="SportsFragment"
+        tools:layout="@layout/fragment_general">
+        <action
+            android:id="@+id/action_sportsFragment_to_articleWebDetailFragment"
+            app:destination="@id/articleWebDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tecnologyFragment"
+        android:name="ipca.example.mutiasnoticiasfrescas.ui.home.TecnologyFragment"
+        android:label="TecnologyFragment"
+        tools:layout="@layout/fragment_general">
+        <action
+            android:id="@+id/action_tecnologyFragment_to_articleWebDetailFragment"
+            app:destination="@id/articleWebDetailFragment" />
+    </fragment>
 
 </navigation>
