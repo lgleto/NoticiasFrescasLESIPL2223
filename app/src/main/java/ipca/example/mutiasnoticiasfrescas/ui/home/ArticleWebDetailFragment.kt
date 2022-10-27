@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ipca.example.mutiasnoticiasfrescas.AppDatabase
 import ipca.example.mutiasnoticiasfrescas.Article
 import ipca.example.mutiasnoticiasfrescas.R
 import ipca.example.mutiasnoticiasfrescas.databinding.FragmentArticleWebDetailBinding
@@ -58,6 +59,11 @@ class ArticleWebDetailFragment : Fragment() {
                 val intentChooser = Intent.createChooser(intent, article?.title)
                 startActivity(intentChooser)
                 return true
+            }
+            R.id.action_save -> {
+                article?.let {
+                    AppDatabase.getDatabase(requireContext())?.articleDao()?.insert(it)
+                }
             }
             android.R.id.home -> {
                 findNavController().popBackStack()

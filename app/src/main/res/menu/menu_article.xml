@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_baseline_share_24"
         android:title="Share"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_baseline_bookmark_border_24"
+        android:title="Share"
+        app:showAsAction="always" />
 </menu>
