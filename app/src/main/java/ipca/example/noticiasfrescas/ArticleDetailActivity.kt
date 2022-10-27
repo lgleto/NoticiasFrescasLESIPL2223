@@ -2,6 +2,7 @@ package ipca.example.noticiasfrescas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.TextView
 
 class ArticleDetailActivity : AppCompatActivity() {
