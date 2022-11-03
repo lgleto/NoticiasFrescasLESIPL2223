@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_baseline_computer_24"
         android:title="@string/title_tecnology" />
 
+    <item
+        android:id="@+id/bookmarksFragment"
+        android:icon="@drawable/ic_baseline_bookmark_24"
+        android:title="@string/title_bookmarks" />
+
 </menu>

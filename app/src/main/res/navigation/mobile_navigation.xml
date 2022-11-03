@@ -50,5 +50,13 @@
             android:id="@+id/action_tecnologyFragment_to_articleWebDetailFragment"
             app:destination="@id/articleWebDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="ipca.example.mutiasnoticiasfrescas.ui.home.BookmarksFragment"
+        android:label="BookmarksFragment" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_articleWebDetailFragment"
+            app:destination="@id/articleWebDetailFragment" />
+    </fragment>
 
 </navigation>
